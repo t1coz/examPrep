@@ -1,2 +1,2 @@
-# Preperaring for exams, sorta.
+# A few functions, that I guess will help someone during preparation.
 
