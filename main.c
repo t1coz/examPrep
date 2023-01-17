@@ -131,30 +131,30 @@ int partition(int arr[], int low, int high){
     swap(&arr[i], &arr[high]);
     return i;
 }
-void quickSortRecursion(int arr[], int low, int high){
+void quickSortRec(int arr[], int low, int high){
     if(low<high){
         int pivotIndex = partition(arr, low, high);
-        quickSortRecursion(arr, low, pivotIndex-1);
-        quickSortRecursion(arr, pivotIndex+1, high);
+        quickSortRec(arr, low, pivotIndex-1);
+        quickSortRec(arr, pivotIndex+1, high);
     }
 }
 void quickSort(int arr[], int n){
-    quickSortRecursion(arr, 0, n-1);
+    quickSortRec(arr, 0, n-1);
 }
-void mergeSortedArrays(int arr[], int l, int m, int r){
+void mergeSortedArray(int arr[], int l, int m, int r){
     int leftLength = m+1-l, rightLength = r-m;
-    int tempLeft[leftLength], tempRight[rightLength];
+    int tempL[leftLength], tempR[rightLength];
     int i, j, k;
-    for(i=0; i < leftLength; i++)
-        tempLeft[i] = arr[i+l];
-    for(i=0; i<rightLength; i++)
-        tempRight[i] = arr[m+1+i];
-    for(i=0, j=0, k=l; k<=r;k++){
-        if(i<leftLength &&(j>=rightLength || tempLeft[i]<tempRight[j])){
-            arr[k] = tempLeft[i];
+    for(i = 0; i<leftLength; i++)
+        tempL[i] = arr[l+i];
+    for(i = 0; i<rightLength; i++)
+        tempR[i] = arr[m+1+i];
+    for(i=0, j=0, k=l; k<=r; k++){
+        if(i<leftLength && (j>=rightLength || tempL[i]<tempR[j])){
+            arr[k] = tempL[i];
             i++;
         }else{
-            arr[k] = tempRight[j];
+            arr[k] = tempR[j];
             j++;
         }
     }
@@ -164,10 +164,10 @@ void mergeSortRecursion(int arr[], int l, int r){
         int m = (l+r-1)/2;
         mergeSortRecursion(arr, l, m);
         mergeSortRecursion(arr, m+1, r);
-        mergeSortedArrays(arr, l, m, r);
+        mergeSortedArray(arr, l, m, r);
     }
 }
-void mergeSort(int arr[], int n){
+void mergeSort(int arr[], int n ){
     mergeSortRecursion(arr, 0, n-1);
 }
 void shellSort(int arr[], int n){
@@ -215,7 +215,7 @@ void selectionSort(int arr[], int n){
 }
 void bubbleSort(int arr[], int n){
     int temp;
-    for(int i = 0; i<n; i++){
+    for(int i=0; i<n; i++){
         for(int j = 0; j<n-1; j++){
             if(arr[j]>arr[j+1]){
                 temp = arr[j];
@@ -237,7 +237,7 @@ int main() {
     output(n, arr);
     printf("\n");
 
-    quickSort(arr, n);
+    shellSort(arr, n);
 
     output(n, arr);
     return 0;
