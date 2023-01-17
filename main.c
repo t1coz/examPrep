@@ -36,7 +36,6 @@ int **delEachKRow(int **arr, int *n, int k){
                 arr[i] = arr[i + 1];
             }
             printf("\\n");
-
             free(temp);
             (*n)--;
             arr = (int **) realloc(arr, (*n) * sizeof(int *));
