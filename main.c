@@ -1,5 +1,34 @@
 #include <stdio.h>
+//rowActionsFor1D---------------------------------------
+void rightShiftOf1DArray(int arr[], int n){
+    int c = arr[n-1];
+    for(int i = n-1; i>0; i--){
+        arr[i] = arr[i-1];
+    }
+    arr[0] = c;
+}
+void leftShiftOf1DArray(int arr[], int n){
+    int c = arr[0];
+    for(int i = 0; i<n-1; i++){
+        arr[i] = arr[i+1];
+    }
+    arr[n-1] = c;
+}
+void deletingKElementFromRow1D(int arr[], int *n, int k){
+    for(int i = k; i<(*n)-1; i++){
+        arr[i] = arr[i+1];
+    }
+    (*n)--;
+}
+void addindKElementIn1D(int arr[], int *n, int k){
+    (*n)++;
+    for(int i = *n-1; i>k; i--){
+        arr[i+1] = arr[i];
+    }
+    arr[k+1] = -1;
 
+}
+//SortingMethods-------------------------------------------------------------------------
 void swap(int *x, int *y){
     int temp = *x;
     *x = *y;
@@ -124,7 +153,12 @@ int main() {
     printf("\n");
 
     shellSort(arr, n);
-
     output(n, arr);
+    printf("\n");
+
+
+    addindKElementIn1D(arr, &n, 1);
+    output(n, arr);
+
     return 0;
 }
