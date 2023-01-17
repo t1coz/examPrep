@@ -1,5 +1,125 @@
 #include <stdio.h>
-//rowActionsFor1D---------------------------------------
+#include <stdlib.h>
+//otherStuff--------------------
+int fibonacciNum(int n){
+    if(n<3)
+        return 1;
+    else
+        return(fibonacciNum(n-2)+ fibonacciNum(n-1));
+}
+//2DArraysAndActionsW/Them------------------
+//stringsAndActionsW/Them----------------------------------
+char* getStr(){
+    char* s;
+    char c;
+    int i=0, n = 1;
+    s = (char*)calloc(n, sizeof (char));
+    while(n<=1){
+        while((c = getchar()!=EOF) && c!= '\n'){
+            n++;
+            s = (char*)realloc(s, n * sizeof(char));
+            s[i] = c;
+            i++;
+        }
+    }
+    s[n] = '\0';
+    return s;
+}
+int strLen(char* str){
+    int i = 0;
+    while(str[i]!='\0'){
+        i++;
+    }
+    return i;
+}
+int isLetter(char s){
+    if((s>='a' && s<='z')||(s>='A' && s<='Z'))
+        return 1;
+    return 0;
+}
+void strCopy(char* s1, char** s2){
+    int i = 0;
+    int n = strLen(s1);
+    *s2 = (char*)calloc(n,sizeof(char));
+    while(s1[i]!='\0'){
+        *s2[i] = s1[i];
+        i++;
+    }
+    *s2[i] = '\0';
+}
+int countWords(char *s){
+    int cnt = 0, i;
+    int n = strLen(s);
+    for (i = 0; i < n; i++) {
+        if(isLetter(s[i])==1 && i == 0){
+            cnt++;
+        }
+        if(isLetter(s[i-1])==0 && isLetter(s[i])==1){
+            cnt++;
+        }
+    }
+    return cnt;
+}
+int strCmp(char *s1, char *s2){
+    int i = 0;
+    while(s1[i]!='\0'){
+        if(s1[i] - s2[i] != 0)
+            return s1[i] - s2[i];
+        i++;
+    }
+    if(s1[i]=='\0'){
+        return -1;
+    }
+    return 0;
+}
+char *s2InS1FromK(char *s1, char *s2, int k){
+    char *s;
+    int i, len1 = strLen(s1), len2 = strLen(s2);
+    if (k > len1) k=len1;
+    if ((s=(char*)malloc(sizeof(char)*(len1 + len2))) == NULL)
+        return s1;
+    for (i=0; i<k; i++)
+        *(s+i) = *(s1+i);
+    for (i=0; *(s2+i)!='\0'; i++)
+        *(s+k+i) = *(s2+i);
+    for (i=0; *(s1+k+i)!='\0'; i++)
+        *(s+k+len2+i) = *(s1+k+i);
+    *(s+k+len2+i)='\0';
+    s1=s;
+    return s1;
+}
+int atoI(char *str){
+    int res = 0;
+    int sign = 1;
+    int i = 0;
+    if (str[0] == '-') {
+        sign = -1;
+        i++;
+    }
+    for (; str[i] != '\0'; ++i)
+        res = res * 10 + str[i] - '0';
+    return sign * res;
+}
+double a_to_f(char *s)
+{ float n, res = 0.0;
+    int i=0, znak;
+    while(s[i++]==' ' && s[i]!='\0');
+    if (s[i]=='\0') return 0;
+    i--;
+    znak = (s[i]=='-') ? -1 : 1;
+    if (s[i]=='+' || s[i]=='-')
+        i++;
+    for(n=0.0; (s[i]>'0' && s[i]<='9') || s[i]=='.'; i++){
+        if (s[i]!='.')
+            n= 10.0*n + (s[i]-'0');
+        else res=1;
+        if (res != 0) res *= 10;
+    }
+    res /= 10;
+    return znak*n / res;
+}
+
+//rowActionsFor1D------------------------------------------------------------
 void rightShiftOf1DArray(int arr[], int n){
     int c = arr[n-1];
     for(int i = n-1; i>0; i--){
@@ -26,7 +146,6 @@ void addindKElementIn1D(int arr[], int *n, int k){
         arr[i+1] = arr[i];
     }
     arr[k+1] = -1;
-
 }
 //SortingMethods-------------------------------------------------------------------------
 void swap(int *x, int *y){
@@ -140,7 +259,7 @@ void bubbleSort(int arr[], int n){
         }
     }
 }
-void output(int n, int arr[]){
+void output1D(int n, int arr[]){
     for (int i = 0; i < n; ++i) {
         printf("%2d", arr[i]);
     }
@@ -149,16 +268,15 @@ int main() {
     int arr[7] = {3, 6, 2, 5, 1, 0, 9};
     int n = 7;
 
-    output(n, arr);
+    output1D(n, arr);
     printf("\n");
 
-    shellSort(arr, n);
-    output(n, arr);
+    mergeSort(arr, n);
+    output1D(n, arr);
     printf("\n");
 
-
-    addindKElementIn1D(arr, &n, 1);
-    output(n, arr);
+//    addindKElementIn1D(arr, &n, 1);
+//    output1D(n, arr);
 
     return 0;
 }
