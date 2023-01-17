@@ -1,2 +1,2 @@
-# examPrep
-Preperaring for exams, sorta.
+# Preperaring for exams, sorta.
+
