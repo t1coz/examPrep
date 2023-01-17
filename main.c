@@ -140,12 +140,22 @@ void deletingKElementFromRow1D(int arr[], int *n, int k){
     }
     (*n)--;
 }
-void addindKElementIn1D(int arr[], int *n, int k){
+void addKElementto1D(int arr[], int *n, int k){
     (*n)++;
     for(int i = *n-1; i>k; i--){
         arr[i+1] = arr[i];
     }
     arr[k+1] = -1;
+}
+void addElementAfterCondition(int arr[], int n){ //if multiple of 3, add 100 after value
+    for (int i = n-1; i >= 0; i--) {
+        if (arr[i] % 3 == 0) {
+            n++;
+            for (int j = n - 1; j > i; j--)
+                arr[j + 1] = arr[j];
+            arr[i + 1] = 100;
+        }
+    }
 }
 //SortingMethods-------------------------------------------------------------------------
 void swap(int *x, int *y){
