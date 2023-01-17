@@ -8,6 +8,87 @@ int fibonacciNum(int n){
         return(fibonacciNum(n-2)+ fibonacciNum(n-1));
 }
 //2DArraysAndActionsW/Them------------------
+int **memory(int n, int m) {
+    int **arr;
+    arr = (int **) calloc(n, sizeof(int *));
+    for (int i = 0; i < n; i++) {
+        arr[i] = (int *) calloc(m, sizeof(int));
+    }
+    return arr;
+}
+int **addRowAfterK(int **arr, int *n, int m, int k) {
+    int i;
+    (*n)++;
+    arr = (int **) realloc(arr, (*n) * sizeof(int *));
+    arr[*n - 1] = (int *) calloc(m, sizeof(int));
+    int *temp = arr[*n - 1];
+    for (i = *n - 1; i > k - 1; i--) {
+        arr[i] = arr[i - 1];
+    }
+    arr[k] = temp;
+    /*for (i = 0; i < m; i++)
+        arr[k-1][i] = 0;*/
+}
+int **delEachKRow(int **arr, int *n, int k){
+    for(int j = *n - 1; j >= 0; j--) {
+        if ((j + 1) % k == 0) {
+            int *temp = arr[j];
+            for (int i = j; i < *(n) - 1; i++) {
+                arr[i] = arr[i + 1];
+            }
+            printf("\\n");
+
+            free(temp);
+            (*n)--;
+            arr = (int **) realloc(arr, (*n) * sizeof(int *));
+        }
+    }
+    return arr;
+}
+int cnt0InColumn(int** mas, int n, int m, int k){
+    int cnt = 0;
+    for(int i = 0; i < n; i++){
+        if(mas[i][k] > 10)
+            cnt++;
+    }
+    return cnt;
+}
+int cntOddInRow(int* mas, int m){
+    int cnt = 0;
+    for(int i = 0; i < m; i++){
+        if(mas[i] % 2 == 1)
+            cnt++;
+    }
+    return cnt;
+}
+void sortColumn(int** matr, int n, int m){
+    for(int i=0; i < m; i++){
+        for(int j = 0; j < m-1; j ++){
+            int key1 = cnt0InColumn(matr, n, m, j);
+            int key2 = cnt0InColumn(matr, n, m, j+1);
+            if(key1 > key2){
+                for(int k = 0; k < n; k++){
+                    int temp = matr[k][j];
+                    matr[k][j] = matr[k][j+1];
+                    matr[k][j+1] = temp;
+                }
+            }
+        }
+    }
+}
+void sortRow(int** matr, int n, int m){
+    for(int i=0; i < n; i++){
+        for(int j = 0; j < n-1; j ++){
+            int key1 = cntOddInRow(matr[j], m);
+            int key2 = cntOddInRow(matr[j+1], m);
+            if(key1 > key2){
+                int* temp = matr[j];
+                matr[j] = matr[j+1];
+                matr[j+1] = temp;
+            }
+        }
+    }
+}
 //stringsAndActionsW/Them----------------------------------
 char* getStr(){
     char* s;
@@ -118,7 +199,12 @@ double a_to_f(char *s)
     res /= 10;
     return znak*n / res;
 }
-
+void deletingArr(char **arr, int n){
+    if(n!=0){
+        for (int i = 0; i < n; i++) free(arr[i]);
+        free(arr);
+    }
+}
 //rowActionsFor1D------------------------------------------------------------
 void rightShiftOf1DArray(int arr[], int n){
     int c = arr[n-1];
@@ -275,6 +361,8 @@ void output1D(int n, int arr[]){
     }
 }
 int main() {
+    char* str;
+    str = (char*)calloc(1, sizeof(char));
     int arr[7] = {3, 6, 2, 5, 1, 0, 9};
     int n = 7;
 
