@@ -1,0 +1,4 @@
+# ninja log v5
+1	52	1673875337784118293	build.ninja	ec4dc5f8818f2ebc
+0	25	1673969147974687353	CMakeFiles/examPrep.dir/main.c.o	9889cc43cdbf0c8f
+25	54	1673969148004543351	examPrep	69dea203d7b89bb4
