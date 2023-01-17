@@ -85,7 +85,7 @@
 //        arr[j+1] = value;
 //    }
 //}
-////1 4 8 3 5 0
+//1 4 8 3 5 0
 //void selectionSort(int n, int arr[]){
 //    int temp;
 //    for(int i = 0; i < n-1; i++){
