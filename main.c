@@ -187,7 +187,6 @@ void shellSort(int arr[], int n){
     }
 }
 void insertionSort(int arr[], int n){
-    int temp;
     for(int i = 1; i<n; i++){
         int value = arr[i];
         int j = i-1;
