@@ -17,12 +17,11 @@ int **memory(int n, int m) {
     return arr;
 }
 int **addRowAfterK(int **arr, int *n, int m, int k) {
-    int i;
     (*n)++;
     arr = (int **) realloc(arr, (*n) * sizeof(int *));
     arr[*n - 1] = (int *) calloc(m, sizeof(int));
     int *temp = arr[*n - 1];
-    for (i = *n - 1; i > k - 1; i--) {
+    for (int i = *n - 1; i > k - 1; i--) {
         arr[i] = arr[i - 1];
     }
     arr[k] = temp;
@@ -361,8 +360,12 @@ void output1D(int n, int arr[]){
     }
 }
 int main() {
-    char* str;
-    str = (char*)calloc(1, sizeof(char));
+//    int nint = 5;
+//    int** str;
+//    str = (int**)calloc(nint,sizeof (int*));
+//    for(int i = 0; i<nint; i++){
+//        str[i] = (int*)calloc(nint, sizeof(int));
+//    }
     int arr[7] = {3, 6, 2, 5, 1, 0, 9};
     int n = 7;
 
