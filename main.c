@@ -203,6 +203,40 @@ void deletingArr(char **arr, int n){
         free(arr);
     }
 }
+int mostRepeated(char*arr, char** words){
+    int repeatCount = 0, maxRepeat = 0, maxIndex = 0, flag = 1;
+    int wordCount = countWords(arr);
+    int n = strLen(arr);
+    for (int j = 0; j < wordCount; j++){
+        for (int i = 0; i < wordCount; i++) {
+            for (int k = 0; k < n; k++){
+                if (words[j][k] != words[i][k]){
+                    flag = 0;
+                    break;
+                }
+            }
+            if (flag == 1){
+                repeatCount++;
+            }
+            flag = 1;
+        }
+        if (maxRepeat < repeatCount){
+            maxRepeat = repeatCount;
+            maxIndex = j;
+        }
+        repeatCount = 0;
+    }
+    return maxIndex;
+}
+void deletingWordWithRow(char*** strSplited, int *wordCount, int k, int m){
+    int i;
+    for(i = k; i<*wordCount-1; i++){
+        for(int j=0; j < m; j++)
+            (*strSplited)[i][j] = (*strSplited)[i+1][j];
+    }
+    (*wordCount)--;
+    (*strSplited) = (char**)realloc((*strSplited), (*wordCount) * sizeof(char*));
+}
 //rowActionsFor1D------------------------------------------------------------
 void rightShiftOf1DArray(int arr[], int n){
     int c = arr[n-1];
