@@ -237,7 +237,44 @@ void deletingWordWithRow(char*** strSplited, int *wordCount, int k, int m){
     (*wordCount)--;
     (*strSplited) = (char**)realloc((*strSplited), (*wordCount) * sizeof(char*));
 }
+char *str_cat(char *s1, char *s2, int k){
+    char *s;
+    int i, len1 = strLen(s1), len2 = strLen(s2);
+
+    if (k > len1)
+        k=len1;
+    if ((s=(char*)malloc(sizeof(char)*(len1 + len2))) == NULL)
+        return s1;
+    for (i=0; i<k; i++)
+        *(s+i) = *(s1+i);
+    for (i=0; *(s2+i)!='\0'; i++)
+        *(s+k+i) = *(s2+i);
+    for (i=0; *(s1+k+i)!='\0'; i++)
+        *(s+k+len2+i) = *(s1+k+i);
+    *(s+k+len2+i)='\0';
+    s1=s;
+    return s1;
+}
 //rowActionsFor1D------------------------------------------------------------
+void reverse(char* str, int size){
+    char temp;
+    for (int i = 0; i < size / 2; i++){
+        temp = str[size - i - 1];
+        str[size - i - 1] = str[i];
+        str[i] = temp;
+    }
+}
+void SwapWords(char* str, int first_begin_index, int first_end_index, int second_begin_index, int second_end_index){
+    char* str_p = &(str[first_begin_index]);
+    reverse(str_p, second_end_index - first_begin_index + 1);
+    reverse(str_p, second_end_index - second_begin_index + 1);
+    str_p = &(str[second_begin_index - (first_end_index - first_begin_index) + (second_end_index - second_begin_index)]);
+    reverse(str_p, first_end_index - first_begin_index + 1);
+    str_p = &(str[second_end_index - second_begin_index + 1]);
+    reverse(str_p, second_begin_index - first_end_index - 1);
+}
+
+
 void cycleShiftintOddOnK(int *arr, int n, int k){
     for(int j = k; j>=0; j--){
         int value = arr[1];
