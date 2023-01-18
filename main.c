@@ -238,6 +238,15 @@ void deletingWordWithRow(char*** strSplited, int *wordCount, int k, int m){
     (*strSplited) = (char**)realloc((*strSplited), (*wordCount) * sizeof(char*));
 }
 //rowActionsFor1D------------------------------------------------------------
+void cycleShiftintOddOnK(int *arr, int n, int k){
+    for(int j = k; j>=0; j--){
+        int value = arr[1];
+        for(int i = 1; i<n-1; i+=2){
+            arr[i]= arr[i+2];
+        }
+        arr[n-2] = value;
+    }
+}
 void rightShiftOf1DArray(int arr[], int n){
     int c = arr[n-1];
     for(int i = n-1; i>0; i--){
@@ -274,6 +283,22 @@ void addElementAfterCondition(int arr[], int n){ //if multiple of 3, add 100 aft
             arr[i + 1] = 100;
         }
     }
+}
+int mostFrequentNumber(int *arr, int n){
+    int i = 0, index = i, count, maxFrequency = 0;
+    for(i = 0; i<n; i++){
+        count = 0;
+        for(int j = 0; j<n; j++){
+            if(arr[i] == arr[j]){
+                count++;
+            }
+        }
+        if(count>maxFrequency){
+            index = i;
+            maxFrequency = count;
+        }
+    }
+    return index;
 }
 //SortingMethods-------------------------------------------------------------------------
 void swap(int *x, int *y){
