@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+//https://pastebin.com/Wt6H8tZx
 //otherStuff--------------------
 int fibonacciNum(int n){
     if(n<3)
@@ -25,18 +26,18 @@ int **addRowAfterK(int **arr, int *n, int m, int k) {
         arr[i] = arr[i - 1];
     }
     arr[k] = temp;
-    /*for (i = 0; i < m; i++)
-        arr[k-1][i] = 0;*/
+    for (int i = 0; i < m; i++)
+        arr[k-1][i] = 0;
 }
 int **delEachKRow(int **arr, int *n, int k){
     for(int j = *n - 1; j >= 0; j--) {
         if ((j + 1) % k == 0) {
-            int *temp = arr[j];
+            //int *temp = arr[j];
             for (int i = j; i < *(n) - 1; i++) {
                 arr[i] = arr[i + 1];
             }
             printf("\\n");
-            free(temp);
+            //free(temp);
             (*n)--;
             arr = (int **) realloc(arr, (*n) * sizeof(int *));
         }
@@ -151,22 +152,6 @@ int strCmp(char *s1, char *s2){
     }
     return 0;
 }
-char *s2InS1FromK(char *s1, char *s2, int k){
-    char *s;
-    int i, len1 = strLen(s1), len2 = strLen(s2);
-    if (k > len1) k=len1;
-    if ((s=(char*)malloc(sizeof(char)*(len1 + len2))) == NULL)
-        return s1;
-    for (i=0; i<k; i++)
-        *(s+i) = *(s1+i);
-    for (i=0; *(s2+i)!='\0'; i++)
-        *(s+k+i) = *(s2+i);
-    for (i=0; *(s1+k+i)!='\0'; i++)
-        *(s+k+len2+i) = *(s1+k+i);
-    *(s+k+len2+i)='\0';
-    s1=s;
-    return s1;
-}
 int atoI(char *str){
     int res = 0;
     int sign = 1;
@@ -237,21 +222,31 @@ void deletingWordWithRow(char*** strSplited, int *wordCount, int k, int m){
     (*wordCount)--;
     (*strSplited) = (char**)realloc((*strSplited), (*wordCount) * sizeof(char*));
 }
-char *str_cat(char *s1, char *s2, int k){
+void deletingFromSecDiag(int **arr, int n, int *m){
+    for (int i = 0; i < n; i++){
+        for (int k = *m-i; k < *m; k++){
+            arr[i][k - 1] = arr[i][k];
+        }
+    }
+    (*m)--;
+    for (int j = 0; j < n; ++j) {
+        arr[j] = (int*)realloc(arr[j], (*m) * sizeof(int));
+    }
+}
+char *strCat(char *s1, char *s2, int k){
     char *s;
     int i, len1 = strLen(s1), len2 = strLen(s2);
-
     if (k > len1)
         k=len1;
     if ((s=(char*)malloc(sizeof(char)*(len1 + len2))) == NULL)
         return s1;
     for (i=0; i<k; i++)
-        *(s+i) = *(s1+i);
-    for (i=0; *(s2+i)!='\0'; i++)
-        *(s+k+i) = *(s2+i);
-    for (i=0; *(s1+k+i)!='\0'; i++)
-        *(s+k+len2+i) = *(s1+k+i);
-    *(s+k+len2+i)='\0';
+        s[i] = s1[i];
+    for (i=0; s2[i]!='\0'; i++)
+        s[k+i] = s2[i];
+    for (i=0; s1[k+i]!='\0'; i++)
+        s[k+len2+i] = s1[k+i];
+    s[k+len2+i]='\0';
     s1=s;
     return s1;
 }
@@ -273,8 +268,6 @@ void SwapWords(char* str, int first_begin_index, int first_end_index, int second
     str_p = &(str[second_end_index - second_begin_index + 1]);
     reverse(str_p, second_begin_index - first_end_index - 1);
 }
-
-
 void cycleShiftintOddOnK(int *arr, int n, int k){
     for(int j = k; j>=0; j--){
         int value = arr[1];
@@ -455,12 +448,6 @@ void output1D(int n, int arr[]){
     }
 }
 int main() {
-//    int nint = 5;
-//    int** str;
-//    str = (int**)calloc(nint,sizeof (int*));
-//    for(int i = 0; i<nint; i++){
-//        str[i] = (int*)calloc(nint, sizeof(int));
-//    }
     int arr[7] = {3, 6, 2, 5, 1, 0, 9};
     int n = 7;
 
@@ -470,9 +457,5 @@ int main() {
     mergeSort(arr, n);
     output1D(n, arr);
     printf("\n");
-
-//    addindKElementIn1D(arr, &n, 1);
-//    output1D(n, arr);
-
     return 0;
 }
