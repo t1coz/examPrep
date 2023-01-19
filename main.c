@@ -22,7 +22,7 @@ int **addRowAfterK(int **arr, int *n, int m, int k) {
     arr = (int **) realloc(arr, (*n) * sizeof(int *));
     arr[*n - 1] = (int *) calloc(m, sizeof(int));
     int *temp = arr[*n - 1];
-    for (int i = *n - 1; i > k - 1; i--) {
+    for (int i = *n - 1; i >= k; i--) {
         arr[i] = arr[i - 1];
     }
     arr[k] = temp;
@@ -259,14 +259,14 @@ void reverse(char* str, int size){
         str[i] = temp;
     }
 }
-void SwapWords(char* str, int first_begin_index, int first_end_index, int second_begin_index, int second_end_index){
-    char* str_p = &(str[first_begin_index]);
-    reverse(str_p, second_end_index - first_begin_index + 1);
-    reverse(str_p, second_end_index - second_begin_index + 1);
-    str_p = &(str[second_begin_index - (first_end_index - first_begin_index) + (second_end_index - second_begin_index)]);
-    reverse(str_p, first_end_index - first_begin_index + 1);
-    str_p = &(str[second_end_index - second_begin_index + 1]);
-    reverse(str_p, second_begin_index - first_end_index - 1);
+void SwapWords(char* str, int firstBegin, int firstEnd, int secondBegin, int secondEnd){
+    char* str_p = &(str[firstBegin]);
+    reverse(str_p, secondEnd - firstBegin + 1);
+    reverse(str_p, secondEnd - secondBegin + 1);
+    str_p = &(str[secondBegin - (firstEnd - firstBegin) + (secondEnd - secondBegin)]);
+    reverse(str_p, firstEnd - firstBegin + 1);
+    str_p = &(str[secondEnd - secondBegin + 1]);
+    reverse(str_p, secondBegin - firstEnd - 1);
 }
 void cycleShiftintOddOnK(int *arr, int n, int k){
     for(int j = k; j>=0; j--){
@@ -446,6 +446,46 @@ void output1D(int n, int arr[]){
     for (int i = 0; i < n; ++i) {
         printf("%2d", arr[i]);
     }
+}
+//some Pre-ready tasks
+//void isLetter(char s){
+//    if((s>='A' && s<='Z')||(s>='a'&&s<='z'))
+//        return 1;
+//    return 0;
+//}
+int findKWord(char *str, int n, int k){
+    int count = 0;
+    for(int i = 0; i<n; i++){
+        if(isLetter(str[i]) ==1 && i == 0){
+            count++;
+        }
+        if(isLetter(str[i-1]) == 0 && isLetter(str[i] = 1 )){
+            count++;
+        }
+        if(count == k){
+            return i;
+        }
+    }
+}
+int findEndIndex(char *str, int n, int k){
+    int i = findKWord(str, n, k);
+
+    while(isLetter(str[i]) == 1){
+        i++;
+    }
+    return i;
+}
+void swapWords(char* str, int firstBeg, int firstEnd, int secondBeg, int secondEnd){
+    char* s = &(str[firstBeg]);
+    reverse(s, secondEnd-firstBeg+1);
+    reverse(s, secondEnd-secondBeg+1);
+    s = &(str[secondBeg-(firstEnd-firstBeg)+(secondEnd-secondBeg)]);
+    reverse(s, firstEnd-firstBeg+1);
+    s = &(str[secondEnd-secondBeg+1]);
+    reverse(s, secondBeg-firstEnd-1);
+}
+void task2(char *str, int n, int k1, int k2){
+    swapWords(str, findKWord(str, n, k1), findEndIndex(str, n, k1), findKWord(str, n, k2), findEndIndex(str, n, k2));
 }
 int main() {
     int arr[7] = {3, 6, 2, 5, 1, 0, 9};
