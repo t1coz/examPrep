@@ -89,18 +89,10 @@ void sortRow(int** matr, int n, int m){
     }
 }
 //stringsAndActionsW/Them----------------------------------
-void reverse(char *str, int k){
-    static int i = 0;
-
-    // если достигнут конец строки
-    if (*(str + k) == '\0') {
-        return;
-    }
-
-    reverse(str, k + 1);
-
-    if (i <= k) {
-        swap(&str[i++], &str[k]);
+void reverseString(char **str, int l, int h, int i){
+    if (l < h){
+        swap(&str[i-1][l], &str[i-1][h]);
+        reverseString(str, l + 1, h - 1, i);
     }
 }
 char* getStr(){
