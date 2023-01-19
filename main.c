@@ -29,6 +29,23 @@ int **addRowAfterK(int **arr, int *n, int m, int k) {
     for (int i = 0; i < m; i++)
         arr[k-1][i] = 0;
 }
+int **add_line(int **arr, int *n, int m, int ind) {
+    (*n)++;
+    int** new_arr = (int **)realloc(arr, (*n) * sizeof(int *));
+    if (new_arr == nullptr) {
+        (*n)--;
+        throw std::exception("no memory");
+    }
+    arr = new_arr;
+    arr[(*n) - 1] = (int *)malloc(m * sizeof(int));
+    for (int i = (*n) - 2; i > ind; i--) {
+        for (int j = 0; j < m; j++) {
+            //копируем всю строку
+            arr[i + 1][j] = arr[i][j];
+        }
+    }
+    return arr;
+}
 int **delEachKRow(int **arr, int *n, int k){
     for(int j = *n - 1; j >= 0; j--) {
         if ((j + 1) % k == 0) {
